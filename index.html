@@ -12,7 +12,7 @@
             --script-white: #f5f5f5;
             --action-red: #e11d48;
             --spotlight-gold: #fbbf24;
-            --glass: rgba(255, 255, 255, 0.05);
+            --paper-white: #fdfdfd;
         }
 
         * {
@@ -41,7 +41,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -234,13 +234,12 @@
             visibility: visible;
         }
 
-        /* Hero Header */
+        /* Hero */
         .page-hero {
-            padding: 140px 0 60px;
+            padding: 160px 0 80px;
             background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
             text-align: center;
             position: relative;
-            border-bottom: 1px solid #222;
         }
 
         .page-hero::before {
@@ -253,120 +252,166 @@
         }
 
         .page-hero h1 {
-            font-size: clamp(2.5rem, 7vw, 4rem);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             margin-bottom: 1rem;
             line-height: 1.1;
+            position: relative;
+            z-index: 1;
         }
 
         .page-hero p {
-            font-size: 1.1rem;
-            color: #a3a3a3;
+            margin: 20px auto 0;
             max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .highlight {
-            color: var(--action-red);
-            border-bottom: 4px solid var(--action-red);
-        }
-
-        /* Film Cards */
-        .film-card {
-            background: #000;
-            border-left: 5px solid var(--spotlight-gold);
-            padding: 30px;
-            margin-bottom: 25px;
-            transition: 0.3s;
+            color: #a3a3a3;
             position: relative;
+            z-index: 1;
+        }
+
+        .highlight { 
+            color: var(--action-red); 
+            border-bottom: 4px solid var(--action-red); 
+        }
+
+        /* Film Grid & Cards */
+        .film-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .film-card {
+            background: #151515;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
         }
 
         .film-card:hover {
-            background: #0f0f0f;
-            border-left-width: 8px;
-            transform: translateX(5px);
+            transform: translateY(-10px);
+            border-color: var(--action-red);
+            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.2);
+        }
+
+        .film-poster {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+        }
+
+        .film-content { 
+            padding: 25px; 
+            flex-grow: 1; 
         }
 
         .film-title { 
             color: var(--spotlight-gold); 
-            margin-bottom: 10px;
-            font-size: 1.5rem;
+            font-size: 1.4rem; 
+            margin-bottom: 10px; 
         }
 
-        .film-card p {
-            color: #a3a3a3;
-            margin-bottom: 15px;
+        .film-card p { 
+            color: #a3a3a3; 
+            font-size: 0.9rem; 
+            margin-bottom: 15px; 
         }
-
-        .film-card a {
+        
+        .watch-link {
             color: var(--action-red);
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
             transition: 0.3s;
-            display: inline-block;
         }
 
-        .film-card a:hover {
+        .watch-link:hover {
             color: var(--spotlight-gold);
-            padding-left: 5px;
         }
 
-        /* Screenplay Cards */
+        /* Screenplay Grid & Cards */
+        .screenplay-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
         .screenplay-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-right: 5px solid var(--action-red);
+            background: var(--paper-white);
+            color: #1a1a1a;
             padding: 30px;
-            margin-bottom: 25px;
-            transition: 0.3s;
+            border-radius: 4px;
+            box-shadow: 6px 6px 0px var(--action-red);
+            transition: 0.3s ease;
+            position: relative;
         }
 
         .screenplay-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-right-width: 8px;
-            transform: translateX(-5px);
+            transform: translate(-3px, -3px);
+            box-shadow: 10px 10px 0px var(--action-red);
+        }
+
+        .scene-label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            color: var(--action-red);
+            display: block;
+            margin-bottom: 10px;
         }
 
         .screenplay-title {
-            color: var(--action-red);
-            margin-bottom: 10px;
+            font-family: 'Courier Prime', monospace;
             font-size: 1.5rem;
+            border-bottom: 2px solid #1a1a1a;
+            display: inline-block;
+            margin-bottom: 15px;
         }
 
-        .screenplay-card p {
-            color: #a3a3a3;
-            margin-bottom: 10px;
+        .screenplay-card p { 
+            color: #333; 
+            margin-bottom: 15px; 
+            font-size: 0.95rem; 
         }
-
+        
         .screenplay-meta {
-            color: #666;
-            font-size: 0.85rem;
-            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #777;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
             font-style: italic;
         }
 
-        /* Section Styling */
-        section {
-            padding: 80px 0;
+        .screenplay-watch-link {
+            color: var(--action-red);
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 10px;
         }
 
-        section h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        section .section-intro {
-            color: #a3a3a3;
-            font-size: 1.1rem;
-            margin-bottom: 50px;
-            max-width: 700px;
-        }
-
-        /* Divider */
+        /* Section Divider */
         .section-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--action-red), transparent);
             margin: 60px 0;
+        }
+
+        /* Utility */
+        section { 
+            padding: 100px 0; 
+        }
+
+        .section-intro { 
+            color: #a3a3a3; 
+            max-width: 700px; 
+            margin-bottom: 40px; 
         }
 
         /* Footer */
@@ -414,14 +459,12 @@
             border-top: 1px solid #222;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .desktop-cta { display: none; }
+            .nav-links, .desktop-cta { display: none; }
             .hamburger { display: flex; }
-            .page-hero h1 { font-size: 2rem; }
-            section h2 { font-size: 2rem; }
-            .film-card, .screenplay-card { padding: 20px; }
+            section { padding: 60px 0; }
+            .screenplay-grid { grid-template-columns: 1fr; }
+            .film-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -429,12 +472,12 @@
 
     <nav>
         <div class="container nav-container">
-            <a href="https://creativelab-helsinki.one" class="logo font-script">CreativeLab // HEL</a>
+            <a href="index.html" class="logo font-script">CreativeLab // HEL</a>
             <ul class="nav-links">
-                <li><a href="https://creativelab-helsinki.one/#courses">Production</a></li>
-                <li><a href="https://creativelab-helsinki.one/#team">Crew</a></li>
-                <li><a href="index.html#screenplay-readings">Screenings</a></li>
-                <li><a href="index.html#contacts">Contact</a></li>
+                <li><a href="index.html#courses">Production</a></li>
+                <li><a href="index.html#team">Crew</a></li>
+                <li><a href="#screenplay-readings">Screenings</a></li>
+                <li><a href="#contacts">Contact</a></li>
             </ul>
             <a href="index.html" class="cta-button desktop-cta">← Back to Home</a>
             
@@ -454,54 +497,70 @@
             <button class="close-menu" id="closeMenu" aria-label="Close Menu">&times;</button>
         </div>
         <ul class="mobile-nav-links">
-            <li><a href="https://creativelab-helsinki.one/#courses" class="mobile-link">Production</a></li>
-            <li><a href="https://creativelab-helsinki.one/#team" class="mobile-link">Crew</a></li>
-            <li><a href="index.html#screenplay-readings" class="mobile-link">Screenings</a></li>
-            <li><a href="index.html#contacts" class="mobile-link">Contact</a></li>
+            <li><a href="index.html#courses" class="mobile-link">Production</a></li>
+            <li><a href="index.html#team" class="mobile-link">Crew</a></li>
+            <li><a href="#screenplay-readings" class="mobile-link">Screenings</a></li>
+            <li><a href="#contacts" class="mobile-link">Contact</a></li>
             <li><a href="index.html" class="mobile-cta">← Back to Home</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <section class="page-hero">
+    <header class="page-hero">
         <div class="container">
             <h4 class="font-script" style="color: var(--spotlight-gold); margin-bottom: 1rem;">Our Productions</h4>
             <h1 class="font-playfair">Films & <span class="highlight">Screenings</span></h1>
-            <p>Explore the creative work of our students — from professional short films to live screenplay readings at Viirus Theater.</p>
+            <p>Watch professional short films and explore original scripts written by our students and performed at Viirus Theater.</p>
         </div>
-    </section>
+    </header>
 
-    <section id="films" style="background: #111;">
+    <section id="films" style="background: #0f0f0f;">
         <div class="container">
-            <h2 class="font-playfair">Recent Premiers</h2>
-            <p class="section-intro">Our students' completed short films — proof that vision becomes reality with the right tools and dedication.</p>
+            <h2 class="font-playfair" style="font-size: 2.5rem;">Recent Premiers</h2>
+            <p class="section-intro">Our students' completed short films — where vision becomes reality.</p>
             
-            <div class="film-card">
-                <h3 class="font-script film-title">The Next Station</h3>
-                <p>Directed by Daniil Daniushevsky, Mikhail Vaulin, Matvey Durnenkov</p>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">A journey between destinations reveals unexpected encounters and profound reflections on life's transitions.</p>
-                <a href="https://www.canva.com/design/DAGt09lxEhk/6Oq7kj3U_NWx3XSp_aXCCg/watch?utm_content=DAGt09lxEhk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h26c91e8ba2">[ WATCH FILM ]</a>
-            </div>
+            <div class="film-grid">
+                <article class="film-card">
+                    <img src="src/nextstation-poster.jpg" alt="The Next Station" class="film-poster">
+                    <div class="film-content">
+                        <h3 class="font-script film-title">The Next Station</h3>
+                        <p>A journey between destinations reveals unexpected encounters and profound reflections on life's transitions.</p>
+                        <p style="font-size: 0.85rem; color: #666;">Directed by Daniil Daniushevsky, Mikhail Vaulin, Matvey Durnenkov</p>
+                        <a href="https://www.canva.com/design/DAGt09lxEhk/6Oq7kj3U_NWx3XSp_aXCCg/watch" class="watch-link">[ WATCH FILM ]</a>
+                    </div>
+                </article>
 
-            <div class="film-card">
-                <h3 class="font-script film-title">Concert for Piano & Cello</h3>
-                <p>Directed by: Evgeny Rozhnov, Luka Ivanov, Vladislav Rayak</p>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Music becomes a language of connection in this contemplative piece about artistic collaboration.</p>
-                <a href="https://www.canva.com/design/DAGt1Ko5od8/FYBrcmFZtnABi617-sTEuQ/watch?utm_content=DAGt1Ko5od8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=heb76d7517f">[ WATCH FILM ]</a>
-            </div>
+                <article class="film-card">
+                    <img src="src/Concert-Piano-and-Cello.PNG" alt="Concert for Piano & Cello" class="film-poster">
+                    <div class="film-content">
+                        <h3 class="font-script film-title">Concert for Piano & Cello</h3>
+                        <p>Music becomes a language of connection in this contemplative piece about artistic collaboration.</p>
+                        <p style="font-size: 0.85rem; color: #666;">Directed by Evgeny Rozhnov, Luka Ivanov, Vladislav Rayak</p>
+                        <a href="https://www.canva.com/design/DAGt1Ko5od8/FYBrcmFZtnABi617-sTEuQ/watch" class="watch-link">[ WATCH FILM ]</a>
+                    </div>
+                </article>
 
-            <div class="film-card">
-                <h3 class="font-script film-title">Between the Lines</h3>
-                <p>Directed by: Nataliya Rozhnova, Ekaterina Nedostupova, Anastasiia Chala</p>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">What's left unsaid often speaks the loudest. A subtle exploration of communication and understanding.</p>
-                <a href="https://www.canva.com/design/DAGt03oB1Ho/lp7gPSiIOCYkAQ6smly60Q/watch?utm_content=DAGt03oB1Ho&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8a823a7e85">[ WATCH FILM ]</a>
-            </div>
+                <article class="film-card">
+                    <img src="src/Between_the_Lines.png" alt="Between the Lines" class="film-poster">
+                    <div class="film-content">
+                        <h3 class="font-script film-title">Between the Lines</h3>
+                        <p>What's left unsaid often speaks the loudest. A subtle exploration of communication and understanding.</p>
+                        <p style="font-size: 0.85rem; color: #666;">Directed by Nataliya Rozhnova, Ekaterina Nedostupova, Anastasiia Chala</p>
+                        <a href="https://www.canva.com/design/DAGt03oB1Ho/lp7gPSiIOCYkAQ6smly60Q/watch" class="watch-link">[ WATCH FILM ]</a>
+                    </div>
+                </article>
 
-            <div class="film-card">
-                <h3 class="font-script film-title">Snap to Memories</h3>
-                <p>An experimental narrative on memory. Created in 48 hours for Uneton48</p>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">A race against time that produced a haunting meditation on how we preserve and lose our past.</p>
-                <a href="https://www.canva.com/design/DAGt1O0vfhA/NTzsAKDCUEkcXMR-mmXHiA/watch?utm_content=DAGt1O0vfhA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h697ba1b99b">[ WATCH FILM ]</a>
+                <article class="film-card">
+                    <div style="width: 100%; aspect-ratio: 16/9; background: linear-gradient(45deg, #222, #333); display: flex; align-items: center; justify-content: center; position: relative;">
+                        <span style="font-size: 2rem; color: rgba(255,255,255,0.2);">▶</span>
+                    </div>
+                    <div class="film-content">
+                        <h3 class="font-script film-title">Snap to Memories</h3>
+                        <p>A race against time that produced a haunting meditation on how we preserve and lose our past.</p>
+                        <p style="font-size: 0.85rem; color: #666;">Created in 48 hours for Uneton48</p>
+                        <a href="https://www.canva.com/design/DAGt1O0vfhA/NTzsAKDCUEkcXMR-mmXHiA/watch" class="watch-link">[ WATCH FILM ]</a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -510,9 +569,9 @@
         <div class="section-divider"></div>
     </div>
 
-    <section id="screenplay-readings" style="background: #0a0a0a;">
+    <section id="screenplay-readings">
         <div class="container">
-            <h2 class="font-playfair">Screenplay Readings</h2>
+            <h2 class="font-playfair" style="font-size: 2.5rem;">Screenplay Readings</h2>
             <p class="section-intro">Live theatrical presentations of original screenplays at Viirus Theater. Students bring their written work to life through professional readings.</p>
             
             <div style="text-align: center; margin-bottom: 50px;">
@@ -520,46 +579,54 @@
                 <p style="color: #666; font-size: 0.95rem;">First Collection</p>
             </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Wings (Крылья)</h3>
-                <p><strong>Written by:</strong> Olya Rozhnova, Varvara Shaliguzova, Arina Rabikova, Sofia Padyukova, Yulia</p>
-                <p>A poetic exploration of dreams, freedom, and the courage to spread your wings beyond familiar horizons.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Evgeniya Prokina, Elizaveta Kirillopskaya, Arina Rabikova, Sofia Padyukova</p>
-            </div>
+            <div class="screenplay-grid">
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 01: DREAMS</span>
+                    <h3 class="screenplay-title">Wings (Крылья)</h3>
+                    <p>A poetic exploration of dreams, freedom, and the courage to spread your wings beyond familiar horizons.</p>
+                    <p class="screenplay-meta">Written by: Olya Rozhkova, Varvara Shaliguzova, Arina Rabikova, Sofia Padyukova<br>
+                    Performed by: Evgeniya Prokina, Elizaveta Kirillopskaya, Arina Rabikova, Sofia Padyukova</p>
+                </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Chair (Стул)</h3>
-                <p><strong>Written by:</strong> Daniil Danyushevsky</p>
-                <p>An intimate character study revealing how everyday objects carry the weight of human stories and connections.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Tasya Mustenko, Vladislav Gomankov, Luka Ivanov</p>
-            </div>
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 02: THE OBJECT</span>
+                    <h3 class="screenplay-title">Chair (Стул)</h3>
+                    <p>An intimate character study revealing how everyday objects carry the weight of human stories and connections.</p>
+                    <p class="screenplay-meta">Written by: Daniil Danyushevsky<br>
+                    Performed by: Tasya Mustenko, Vladislav Gomankov, Luka Ivanov</p>
+                </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">New Life (Новая Жизнь)</h3>
-                <p><strong>Written by:</strong> Nataliya Rozhnova, Anastasia Chala</p>
-                <p>A transformative journey of self-discovery when circumstances force us to rebuild our lives from scratch.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Anastasia Chala, Ekaterina Voronina, Mikhail Durnenkov, Daniil Danyushevsky</p>
-            </div>
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 03: NEW BEGINNINGS</span>
+                    <h3 class="screenplay-title">New Life (Новая Жизнь)</h3>
+                    <p>A transformative journey of self-discovery when circumstances force us to rebuild our lives from scratch.</p>
+                    <p class="screenplay-meta">Written by: Nataliya Rozhkova, Anastasia Chala<br>
+                    Performed by: Anastasia Chala, Ekaterina Voronina, Mikhail Durnenkov, Daniil Danyushevsky</p>
+                </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Saturn (Сатурн)</h3>
-                <p><strong>Written by:</strong> Mikhail Vaulin, Katerina Nechaeva</p>
-                <p>A psychological drama exploring the weight of choices, isolation, and the search for meaning in an indifferent universe.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Matvey Durnenkov, Mikhail Durnenkov, Mikhail Vaulin, Katerina Nechaeva, Luka Ivanov</p>
-            </div>
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 04: PSYCHOLOGY</span>
+                    <h3 class="screenplay-title">Saturn (Сатурн)</h3>
+                    <p>A psychological drama exploring the weight of choices, isolation, and the search for meaning in an indifferent universe.</p>
+                    <p class="screenplay-meta">Written by: Mikhail Vaulin, Katerina Nechaeva<br>
+                    Performed by: Matvey Durnenkov, Mikhail Durnenkov, Mikhail Vaulin, Katerina Nechaeva, Luka Ivanov</p>
+                </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Eternal Life (Вечная Жизнь)</h3>
-                <p><strong>Written by:</strong> Emil Gilmanov</p>
-                <p>A philosophical meditation on mortality, legacy, and what it truly means to live forever through our actions and memories.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Matvey Durnenkov, Mikhail Vaulin, Emil Gilmanov</p>
-            </div>
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 05: PHILOSOPHY</span>
+                    <h3 class="screenplay-title">Eternal Life (Вечная Жизнь)</h3>
+                    <p>A philosophical meditation on mortality, legacy, and what it truly means to live forever through our actions and memories.</p>
+                    <p class="screenplay-meta">Written by: Emil Gilmanov<br>
+                    Performed by: Matvey Durnenkov, Mikhail Vaulin, Emil Gilmanov</p>
+                </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Following Someone (За Кем-то)</h3>
-                <p><strong>Written by:</strong> Fedor Stolyar</p>
-                <p>A tense thriller about obsession and surveillance, where following someone reveals more about ourselves than about them.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Darya Stukalina, Tasya Kostyuk, Zhenya Perepelitsa, Artem Stefanenko, Anton Lebedev</p>
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 06: THRILLER</span>
+                    <h3 class="screenplay-title">Following Someone (За Кем-то)</h3>
+                    <p>A tense thriller about obsession and surveillance, where following someone reveals more about ourselves than about them.</p>
+                    <p class="screenplay-meta">Written by: Fedor Stolyar<br>
+                    Performed by: Darya Stukalina, Tasya Kostyuk, Zhenya Perepelitsa, Artem Stefanenko, Anton Lebedev</p>
+                </div>
             </div>
 
             <div style="text-align: center; margin: 60px 0 50px;">
@@ -567,38 +634,44 @@
                 <p style="color: #666; font-size: 0.95rem;">Second Collection</p>
             </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Film story (Киноистория)</h3>
-                <p><strong>Written by:</strong> Vladislav Raik, Lev Degotinsky, Anna Serdyuk, Elizaveta Kirillopskaya, Matvey Durnenkov</p>
-                <p>A meta-narrative exploring cinema itself — how films shape us, preserve memories, and connect generations through shared stories.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Lev Degotinsky, Matvey Durnenkov, Vladislav Raik, Daniil Danyushevsky, Anna Serdyuk, San Kostina</p>
-                <a href="https://www.canva.com/design/DAG7-yraTXU/0m4WwLP3Aol80kZinti0yw/watch?utm_content=DAG7-yraTXU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h080ba4a5ae" style="color: var(--action-red); text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px;">[ WATCH READING ]</a>
+            <div class="screenplay-grid">
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 07: META-CINEMA</span>
+                    <h3 class="screenplay-title">Film History (Киноистория)</h3>
+                    <p>A meta-narrative exploring cinema itself — how films shape us, preserve memories, and connect generations through shared stories.</p>
+                    <p class="screenplay-meta">Written by: Vladislav Raik, Lev Degotinsky, Anna Serdyuk, Elizaveta Kirillopskaya, Matvey Durnenkov<br>
+                    Performed by: Lev Degotinsky, Matvey Durnenkov, Vladislav Raik, Daniil Danyushevsky, Anna Serdyuk, San Kostina</p>
+                    <a href="https://www.canva.com/design/DAG7-yraTXU/0m4WwLP3Aol80kZinti0yw/watch" class="screenplay-watch-link">[ WATCH READING ]</a>
+                </div>
+
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 08: SOLO</span>
+                    <h3 class="screenplay-title">The Artist (Художник)</h3>
+                    <p>A powerful solo performance examining the creative process, sacrifice, and the price of artistic vision.</p>
+                    <p class="screenplay-meta">Written by: Evgeny Rozhnov<br>
+                    Read by: Mikhail Durnenkov</p>
+                    <a href="https://www.canva.com/design/DAG7-4l7sxs/vvwPsnyqu3DUjNi9nNgkBg/watch" class="screenplay-watch-link">[ WATCH READING ]</a>
+                </div>
+
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 09: JOURNEY</span>
+                    <h3 class="screenplay-title">Will You Come With Me? (Ты Пойдешь Со Мной?)</h3>
+                    <p>An invitation becomes a journey — a collaborative piece about trust, companionship, and taking leaps of faith together.</p>
+                    <p class="screenplay-meta">Written by: Luka Ivanov, Olya Rozhkova, Mikhail Vaulin, Sofia Padyukova, Matvey Paasonen, Daniil Danyushevsky<br>
+                    Performed by: Artem Stefanenko, Anton Lebedev, Darya Stukalina, Vladislav Gomankov</p>
+                    <a href="https://www.canva.com/design/DAG7-07SWdg/VnOXy7k0WU7mT_iXjM1mNA/watch" class="screenplay-watch-link">[ WATCH READING ]</a>
+                </div>
+
+                <div class="screenplay-card">
+                    <span class="scene-label">SCENE 10: ROMANCE</span>
+                    <h3 class="screenplay-title">Love Story</h3>
+                    <p>A contemporary romance that challenges traditional narratives, exploring love in all its messy, beautiful complexity.</p>
+                    <p class="screenplay-meta">Written by: Ekaterina Voronina, Arina Rabikova, Varvara Shaliguzova<br>
+                    Performed by: Elizaveta Kirillopskaya, Matvey Durnenkov, Varvara Shaliguzova, Anna Serdyuk, Sofia Padyukova, Ekaterina Voronina</p>
+                </div>
             </div>
 
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">The Artist (Художник)</h3>
-                <p><strong>Written by:</strong> Evgeny Rozhnov</p>
-                <p>A powerful solo performance examining the creative process, sacrifice, and the price of artistic vision.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Read by Mikhail Durnenkov</p>
-                <a href="https://www.canva.com/design/DAG7-4l7sxs/vvwPsnyqu3DUjNi9nNgkBg/watch?utm_content=DAG7-4l7sxs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h5497687e60" style="color: var(--action-red); text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px;">[ WATCH READING ]</a>
-            </div>
-
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Will You Come With Me? (Ты Пойдешь Со Мной?)</h3>
-                <p><strong>Written by:</strong> Luka Ivanov, Olya Rozhnova, Mikhail Vaulin, Sofia Padyukova, Matvey Paasonen, Daniil Danyushevsky</p>
-                <p>An invitation becomes a journey — a collaborative piece about trust, companionship, and taking leaps of faith together.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Artem Stefanenko, Anton Lebedev, Darya Stukalina, Vladislav Gomankov</p>
-                <a href="https://www.canva.com/design/DAG7-07SWdg/VnOXy7k0WU7mT_iXjM1mNA/watch?utm_content=DAG7-07SWdg&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hde6ce04091" style="color: var(--action-red); text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px;">[ WATCH READING ]</a>
-            </div>
-
-            <div class="screenplay-card">
-                <h3 class="font-script screenplay-title">Love Story</h3>
-                <p><strong>Written by:</strong> Ekaterina Voronina, Arina Rabikova, Varvara Shaliguzova</p>
-                <p>A contemporary romance that challenges traditional narratives, exploring love in all its messy, beautiful complexity.</p>
-                <p class="screenplay-meta">Live Reading · 2025 · Performed by Elizaveta Kirillopskaya, Matvey Durnenkov, Varvara Shaliguzova, Anna Serdyuk, Sofia Padyukova, Ekaterina Voronina</p>
-            </div>
-
-            <div style="background: var(--glass); border: 1px solid var(--spotlight-gold); padding: 30px; margin: 50px 0; text-align: center; border-radius: 8px;">
+            <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid var(--spotlight-gold); padding: 30px; margin: 60px 0; text-align: center; border-radius: 8px;">
                 <h3 class="font-script" style="color: var(--spotlight-gold); font-size: 1.5rem; margin-bottom: 1rem;">Hosted By</h3>
                 <p style="font-size: 1.2rem; color: var(--script-white); margin: 0;">Alexandra Dunaeva & Mikhail Durnenkov</p>
             </div>
