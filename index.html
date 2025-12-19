@@ -103,6 +103,137 @@
             transform: translateY(-2px);
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--script-white);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1002;
+            transition: right 0.4s ease;
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .mobile-menu-header .logo {
+            font-size: 1.2rem;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            color: var(--script-white);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: 0.3s;
+        }
+
+        .close-menu:hover {
+            color: var(--action-red);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 2rem 0;
+        }
+
+        .mobile-nav-links li {
+            margin: 0;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--script-white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a:active {
+            background: rgba(255,255,255,0.05);
+            border-left-color: var(--action-red);
+            color: var(--action-red);
+        }
+
+        .mobile-cta {
+            margin: 1rem 1.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--action-red);
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Hero Header */
         .page-hero {
             padding: 140px 0 60px;
@@ -286,6 +417,8 @@
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .desktop-cta { display: none; }
+            .hamburger { display: flex; }
             .page-hero h1 { font-size: 2rem; }
             section h2 { font-size: 2rem; }
             .film-card, .screenplay-card { padding: 20px; }
@@ -296,23 +429,45 @@
 
     <nav>
         <div class="container nav-container">
-            <a href="https://creativelab-helsinki.one" class="logo font-script">CreativeLab // HEL</a>
+            <a href="index.html" class="logo font-script">CreativeLab // HEL</a>
             <ul class="nav-links">
                 <li><a href="https://creativelab-helsinki.one/#courses">Production</a></li>
                 <li><a href="https://creativelab-helsinki.one/#team">Crew</a></li>
-                <li><a href="#films">Films</a></li>
-                <li><a href="#screenplay-readings">Screenings</a></li>
-                <li><a href="#footer">Contact</a></li>
+                <li><a href="index.html#screenplay-readings">Screenings</a></li>
+                <li><a href="index.html#contacts">Contact</a></li>
             </ul>
-            <a href="index.html" class="cta-button">← Back to Home</a>
+            <a href="index.html" class="cta-button desktop-cta">← Back to Home</a>
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="logo font-script">CreativeLab // HEL</a>
+            <button class="close-menu" id="closeMenu" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="https://creativelab-helsinki.one/#courses" class="mobile-link">Production</a></li>
+            <li><a href="https://creativelab-helsinki.one/#team" class="mobile-link">Crew</a></li>
+            <li><a href="index.html#screenplay-readings" class="mobile-link">Screenings</a></li>
+            <li><a href="index.html#contacts" class="mobile-link">Contact</a></li>
+            <li><a href="index.html" class="mobile-cta">← Back to Home</a></li>
+        </ul>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <section class="page-hero">
         <div class="container">
             <h4 class="font-script" style="color: var(--spotlight-gold); margin-bottom: 1rem;">Our Productions</h4>
             <h1 class="font-playfair">Films & <span class="highlight">Screenings</span></h1>
-            <p>Explore the creative work of our students — from professional short films to live screenplay readings.</p>
+            <p>Explore the creative work of our students — from professional short films to live screenplay readings at Viirus Theater.</p>
         </div>
     </section>
 
@@ -357,8 +512,8 @@
 
     <section id="screenplay-readings" style="background: #0a0a0a;">
         <div class="container">
-            <h2 class="font-playfair">Screenplay Readings, December 2025</h2>
-            <p class="section-intro">Live theatrical presentations of original screenplays. Students bring their written work to life through professional readings.</p>
+            <h2 class="font-playfair">Screenplay Readings</h2>
+            <p class="section-intro">Live theatrical presentations of original screenplays at Viirus Theater. Students bring their written work to life through professional readings.</p>
             
             <div style="text-align: center; margin-bottom: 50px;">
                 <h3 class="font-script" style="color: var(--spotlight-gold); font-size: 1.8rem; margin-bottom: 0.5rem;">ACT I</h3>
@@ -428,7 +583,7 @@
 
             <div class="screenplay-card">
                 <h3 class="font-script screenplay-title">Will You Come With Me? (Ты Пойдешь Со Мной?)</h3>
-                <p><strong>Written by:</strong> Luka Ivanov, Olya Rozhkova, Mikhail Vaulin, Sofia Padyukova, Matvey Paasonen, Daniil Danyushevsky</p>
+                <p><strong>Written by:</strong> Luka Ivanov, Olya Rozhnova, Mikhail Vaulin, Sofia Padyukova, Matvey Paasonen, Daniil Danyushevsky</p>
                 <p>An invitation becomes a journey — a collaborative piece about trust, companionship, and taking leaps of faith together.</p>
                 <p class="screenplay-meta">Live Reading · 2025 · Performed by Artem Stefanenko, Anton Lebedev, Darya Stukalina, Vladislav Gomankov</p>
             </div>
@@ -449,8 +604,9 @@
                 <a href="index.html#courses" class="cta-button" style="padding: 1rem 2rem;">Join Our Screenwriting Course</a>
             </div>
         </div>
+    </section>
 
-    <footer id="footer">
+    <footer id="contacts">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -465,9 +621,9 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <a href="index.html">Home</a>
-                    <a href="https://creativelab-helsinki.one/#courses">Courses</a>
-                    <a href="https://creativelab-helsinki.one/#team">Our Team</a>
-                    <a href="index.html">Films & Screenings</a>
+                    <a href="index.html#courses">Courses</a>
+                    <a href="index.html#team">Our Team</a>
+                    <a href="films.html">Films & Screenings</a>
                     <a href="https://forms.office.com/r/tPir93Pp9C" target="_blank">Apply Now</a>
                 </div>
                 
@@ -486,6 +642,38 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            hamburger.classList.add('active');
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFunc);
+        menuOverlay.addEventListener('click', closeMenuFunc);
+
+        // Close menu when clicking on links
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenuFunc);
+        });
+    </script>
 
 </body>
 </html>
