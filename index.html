@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Films & Screenings - CreativeLab Helsinki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cinema-black: #0a0a0a;
+            --script-white: #f5f5f5;
+            --action-red: #e11d48;
+            --spotlight-gold: #fbbf24;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cinema-black);
+            color: var(--script-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .font-script {
+            font-family: 'Courier Prime', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--script-white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--action-red); }
+
+        .cta-button {
+            background: var(--action-red);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #be123c;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Header */
+        .page-hero {
+            padding: 140px 0 60px;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #222;
+        }
+
+        .page-hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/film-grain.png');
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .page-hero p {
+            font-size: 1.1rem;
+            color: #a3a3a3;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .highlight {
+            color: var(--action-red);
+            border-bottom: 4px solid var(--action-red);
+        }
+
+        /* Film Cards */
+        .film-card {
+            background: #000;
+            border-left: 5px solid var(--spotlight-gold);
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .film-card:hover {
+            background: #0f0f0f;
+            border-left-width: 8px;
+            transform: translateX(5px);
+        }
+
+        .film-title { 
+            color: var(--spotlight-gold); 
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .film-card p {
+            color: #a3a3a3;
+            margin-bottom: 15px;
+        }
+
+        .film-card a {
+            color: var(--action-red);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .film-card a:hover {
+            color: var(--spotlight-gold);
+            padding-left: 5px;
+        }
+
+        /* Screenplay Cards */
+        .screenplay-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-right: 5px solid var(--action-red);
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+
+        .screenplay-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-right-width: 8px;
+            transform: translateX(-5px);
+        }
+
+        .screenplay-title {
+            color: var(--action-red);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .screenplay-card p {
+            color: #a3a3a3;
+            margin-bottom: 10px;
+        }
+
+        .screenplay-meta {
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+
+        section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        section .section-intro {
+            color: #a3a3a3;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            max-width: 700px;
+        }
+
+        /* Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--action-red), transparent);
+            margin: 60px 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid #222;
+            background: #050505;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--action-red);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #a3a3a3;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #a3a3a3;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--action-red);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #222;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-hero h1 { font-size: 2rem; }
+            section h2 { font-size: 2rem; }
+            .film-card, .screenplay-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo font-script">CreativeLab // HEL</a>
+            <ul class="nav-links">
+                <li><a href="index.html#courses">Production</a></li>
+                <li><a href="index.html#team">Crew</a></li>
+                <li><a href="films.html">Screenings</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+            <a href="index.html" class="cta-button">← Back to Home</a>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <h4 class="font-script" style="color: var(--spotlight-gold); margin-bottom: 1rem;">Our Productions</h4>
+            <h1 class="font-playfair">Films & <span class="highlight">Screenings</span></h1>
+            <p>Explore the creative work of our students — from professional short films to live screenplay readings.</p>
+        </div>
+    </section>
+
+    <section id="films" style="background: #111;">
+        <div class="container">
+            <h2 class="font-playfair">Recent Premiers</h2>
+            <p class="section-intro">Our students' completed short films — proof that vision becomes reality with the right tools and dedication.</p>
+            
+            <div class="film-card">
+                <h3 class="font-script film-title">The Next Station</h3>
+                <p>Directed by Daniil Daniushevsky, Mikhail Vaulin, Matvey Durnenkov</p>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">A journey between destinations reveals unexpected encounters and profound reflections on life's transitions.</p>
+                <a href="https://www.canva.com/design/DAGt09lxEhk/6Oq7kj3U_NWx3XSp_aXCCg/watch?utm_content=DAGt09lxEhk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h26c91e8ba2">[ WATCH FILM ]</a>
+            </div>
+
+            <div class="film-card">
+                <h3 class="font-script film-title">Concert for Piano & Cello</h3>
+                <p>Directed by: Evgeny Rozhnov, Luka Ivanov, Vladislav Rayak</p>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Music becomes a language of connection in this contemplative piece about artistic collaboration.</p>
+                <a href="https://www.canva.com/design/DAGt1Ko5od8/FYBrcmFZtnABi617-sTEuQ/watch?utm_content=DAGt1Ko5od8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=heb76d7517f">[ WATCH FILM ]</a>
+            </div>
+
+            <div class="film-card">
+                <h3 class="font-script film-title">Between the Lines</h3>
+                <p>Directed by: Nataliya Rozhnova, Ekaterina Nedostupova, Anastasiia Chala</p>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">What's left unsaid often speaks the loudest. A subtle exploration of communication and understanding.</p>
+                <a href="https://www.canva.com/design/DAGt03oB1Ho/lp7gPSiIOCYkAQ6smly60Q/watch?utm_content=DAGt03oB1Ho&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8a823a7e85">[ WATCH FILM ]</a>
+            </div>
+
+            <div class="film-card">
+                <h3 class="font-script film-title">Snap to Memories</h3>
+                <p>An experimental narrative on memory. Created in 48 hours for Uneton48</p>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">A race against time that produced a haunting meditation on how we preserve and lose our past.</p>
+                <a href="https://www.canva.com/design/DAGt1O0vfhA/NTzsAKDCUEkcXMR-mmXHiA/watch?utm_content=DAGt1O0vfhA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h697ba1b99b">[ WATCH FILM ]</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="section-divider"></div>
+    </div>
+
+    <section id="screenplay-readings" style="background: #0a0a0a;">
+        <div class="container">
+            <h2 class="font-playfair">Screenplay Readings, December 2025</h2>
+            <p class="section-intro">Live theatrical presentations of original screenplays. Students bring their written work to life through professional readings.</p>
+            
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h3 class="font-script" style="color: var(--spotlight-gold); font-size: 1.8rem; margin-bottom: 0.5rem;">ACT I</h3>
+                <p style="color: #666; font-size: 0.95rem;">First Collection</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Wings (Крылья)</h3>
+                <p><strong>Written by:</strong> Olya Rozhnova, Varvara Shaliguzova, Arina Rabikova, Sofia Padyukova, Yulia</p>
+                <p>A poetic exploration of dreams, freedom, and the courage to spread your wings beyond familiar horizons.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Evgeniya Prokina, Elizaveta Kirillopskaya, Arina Rabikova, Sofia Padyukova</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Chair (Стул)</h3>
+                <p><strong>Written by:</strong> Daniil Danyushevsky</p>
+                <p>An intimate character study revealing how everyday objects carry the weight of human stories and connections.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Tasya Mustenko, Vladislav Gomankov, Luka Ivanov</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">New Life (Новая Жизнь)</h3>
+                <p><strong>Written by:</strong> Nataliya Rozhnova, Anastasia Chala</p>
+                <p>A transformative journey of self-discovery when circumstances force us to rebuild our lives from scratch.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Anastasia Chala, Ekaterina Voronina, Mikhail Durnenkov, Daniil Danyushevsky</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Saturn (Сатурн)</h3>
+                <p><strong>Written by:</strong> Mikhail Vaulin, Katerina Nechaeva</p>
+                <p>A psychological drama exploring the weight of choices, isolation, and the search for meaning in an indifferent universe.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Matvey Durnenkov, Mikhail Durnenkov, Mikhail Vaulin, Katerina Nechaeva, Luka Ivanov</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Eternal Life (Вечная Жизнь)</h3>
+                <p><strong>Written by:</strong> Emil Gilmanov</p>
+                <p>A philosophical meditation on mortality, legacy, and what it truly means to live forever through our actions and memories.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Matvey Durnenkov, Mikhail Vaulin, Emil Gilmanov</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Following Someone (За Кем-то)</h3>
+                <p><strong>Written by:</strong> Fedor Stolyar</p>
+                <p>A tense thriller about obsession and surveillance, where following someone reveals more about ourselves than about them.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Darya Stukalina, Tasya Kostyuk, Zhenya Perepelitsa, Artem Stefanenko, Anton Lebedev</p>
+            </div>
+
+            <div style="text-align: center; margin: 60px 0 50px;">
+                <h3 class="font-script" style="color: var(--spotlight-gold); font-size: 1.8rem; margin-bottom: 0.5rem;">ACT II</h3>
+                <p style="color: #666; font-size: 0.95rem;">Second Collection</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Film History (Киноистория)</h3>
+                <p><strong>Written by:</strong> Vladislav Raik, Lev Degotinsky, Anna Serdyuk, Elizaveta Kirillopskaya, Matvey Durnenkov</p>
+                <p>A meta-narrative exploring cinema itself — how films shape us, preserve memories, and connect generations through shared stories.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Lev Degotinsky, Matvey Durnenkov, Vladislav Raik, Daniil Danyushevsky, Anna Serdyuk, San Kostina</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">The Artist (Художник)</h3>
+                <p><strong>Written by:</strong> Evgeny Rozhnov</p>
+                <p>A powerful solo performance examining the creative process, sacrifice, and the price of artistic vision.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Read by Mikhail Durnenkov</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Will You Come With Me? (Ты Пойдешь Со Мной?)</h3>
+                <p><strong>Written by:</strong> Luka Ivanov, Olya Rozhkova, Mikhail Vaulin, Sofia Padyukova, Matvey Paasonen, Daniil Danyushevsky</p>
+                <p>An invitation becomes a journey — a collaborative piece about trust, companionship, and taking leaps of faith together.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Artem Stefanenko, Anton Lebedev, Darya Stukalina, Vladislav Gomankov</p>
+            </div>
+
+            <div class="screenplay-card">
+                <h3 class="font-script screenplay-title">Love Story</h3>
+                <p><strong>Written by:</strong> Ekaterina Voronina, Arina Rabikova, Varvara Shaliguzova</p>
+                <p>A contemporary romance that challenges traditional narratives, exploring love in all its messy, beautiful complexity.</p>
+                <p class="screenplay-meta">Live Reading · 2025 · Performed by Elizaveta Kirillopskaya, Matvey Durnenkov, Varvara Shaliguzova, Anna Serdyuk, Sofia Padyukova, Ekaterina Voronina</p>
+            </div>
+
+            <div style="background: var(--glass); border: 1px solid var(--spotlight-gold); padding: 30px; margin: 50px 0; text-align: center; border-radius: 8px;">
+                <h3 class="font-script" style="color: var(--spotlight-gold); font-size: 1.5rem; margin-bottom: 1rem;">Hosted By</h3>
+                <p style="font-size: 1.2rem; color: var(--script-white); margin: 0;">Alexandra Dunaeva & Mikhail Durnenkov</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="index.html#courses" class="cta-button" style="padding: 1rem 2rem;">Join Our Screenwriting Course</a>
+            </div>
+        </div>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="font-playfair">CreativeLab Helsinki</h3>
+                    <p>Empowering young creatives through comprehensive storytelling and filmmaking education in the heart of Helsinki.</p>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <a href="https://www.instagram.com/creativelabhelsinki/" target="_blank" style="display: inline;">📷 Instagram</a>
+                        <a href="https://www.facebook.com/profile.php?id=61565014807067" target="_blank" style="display: inline;">📘 Facebook</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#courses">Courses</a>
+                    <a href="index.html#team">Our Team</a>
+                    <a href="films.html">Films & Screenings</a>
+                    <a href="https://forms.office.com/r/tPir93Pp9C" target="_blank">Apply Now</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📍 International Language Club<br>
+                    Saukonpaadenranta 4G, 00180 Helsinki</p>
+                    <p>📧 <a href="mailto:interlang.home@gmail.com" style="display: inline; color: var(--spotlight-gold);">interlang.home@gmail.com</a></p>
+                    <p>📞 <a href="tel:+358401314588" style="display: inline; color: var(--spotlight-gold);">+358 40 1314588</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="font-script" style="margin-bottom: 20px;">CreativeLab Helsinki // 2025</p>
+                <p style="color: #666; font-size: 0.8rem;">Supported by Opetus- ja kulttuuriministeriö Finland</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
