@@ -305,7 +305,9 @@
 
         .film-content { 
             padding: 25px; 
-            flex-grow: 1; 
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .film-title { 
@@ -327,6 +329,7 @@
             font-family: 'Courier Prime', monospace;
             font-size: 0.85rem;
             transition: 0.3s;
+            margin-top: auto;   /* ← прижимает ссылку к низу */
         }
 
         .watch-link:hover {
