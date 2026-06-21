@@ -296,11 +296,116 @@
             box-shadow: 0 10px 30px rgba(225, 29, 72, 0.2);
         }
 
+        /* 1. Standard Vertical Poster (Grid) */
         .film-poster {
             width: 100%;
-            aspect-ratio: 3/4; /* Формат вертикальной афиши */
+            aspect-ratio: 3/4; 
             object-fit: cover;
             display: block;
+        }
+
+        /* Placeholder poster for films without artwork */
+        .film-poster--placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            text-align: center;
+            background:
+                radial-gradient(circle at 50% 30%, rgba(225,29,72,0.25), transparent 60%),
+                repeating-linear-gradient(45deg, #161616, #161616 12px, #1c1c1c 12px, #1c1c1c 24px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .film-poster--placeholder span:first-child {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .film-poster--placeholder .placeholder-title {
+            color: var(--spotlight-gold);
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        /* Compact horizontal card (Feature Film) */
+        .film-card--compact {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 30px; 
+            padding: 30px;
+            margin-bottom: 60px; /* Увеличили отступ снизу до обычной сетки */
+            background: #151515;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .film-card--compact:hover {
+            border-color: var(--spotlight-gold); /* Для имиджевого проекта золотое свечение при наведении */
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.1);
+        }
+
+        /* Горизонтальный постер */
+        .film-card--compact .compact-poster {
+            width: 45%;           
+            flex-shrink: 0;       
+            aspect-ratio: 16/9;   
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+        }
+
+        /* Блок с контентом рядом с горизонтальным постером */
+        .film-card--compact .compact-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;              
+            min-width: 0;         
+        }
+
+        .film-card--compact .compact-icon {
+            flex: 0 0 auto;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border-radius: 8px;
+            background:
+                radial-gradient(circle at 50% 30%, rgba(225,29,72,0.25), transparent 60%),
+                repeating-linear-gradient(45deg, #161616, #161616 8px, #1c1c1c 8px, #1c1c1c 16px);
+        }
+
+        .film-card--compact .film-title {
+            font-size: 1.5rem; /* Немного увеличили заголовок спецпроекта */
+            margin-bottom: 10px;
+        }
+
+        .film-card--compact p {
+            margin-bottom: 12px;
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 600px) {
+            .film-card--compact {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 15px; 
+            }
+            
+            .film-card--compact .compact-poster {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .film-card--compact .compact-content {
+                width: 100%;
+            }
         }
 
         .film-content { 
@@ -329,7 +434,7 @@
             font-family: 'Courier Prime', monospace;
             font-size: 0.85rem;
             transition: 0.3s;
-            margin-top: auto;   /* ← прижимает ссылку к низу */
+            margin-top: auto;   
         }
 
         .watch-link:hover {
@@ -398,7 +503,7 @@
             font-family: 'Courier Prime', monospace;
             font-size: 0.85rem;
             display: block;
-            margin-top: auto;   /* ← прижимает ссылку к низу */
+            margin-top: auto;   
         }
 
         /* Section Divider */
@@ -486,7 +591,6 @@
             </ul>
             <a href="index.html" class="cta-button desktop-cta">← Back to Home</a>
             
-            <!-- Hamburger Menu Button -->
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
                 <span></span>
@@ -495,7 +599,6 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-header">
             <a href="index.html" class="logo font-script">CreativeLab // HEL</a>
@@ -522,12 +625,34 @@
     <section id="films" style="background: #0f0f0f;">
         <div class="container">
             
-            <!-- НОВАЯ СЕКЦИЯ 2026 ГОДА -->
             <h2 class="font-playfair" style="font-size: 2.5rem;">2026 Releases</h2>
-            <p class="section-intro">Our newest short films — fresh from the editing room.</p>
+            <p class="section-intro">Our newest short films: fresh from the editing room.</p>
+
+            <div style="margin-top: 30px; margin-bottom: 15px;">
+                <span class="font-script" style="color: var(--spotlight-gold); font-size: 0.85rem; letter-spacing: 2px;">★ Featured Showcase</span>
+            </div>
+
+<article class="film-card film-card--compact">
+                <img src="./src/all_DSCF3372.jpg" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x400/151515/fbbf24?text=A+Film+About+Films'" alt="A Film About Films" class="compact-poster">
+                <div class="compact-content">
+                    <h3 class="font-script film-title" style="color: var(--spotlight-gold);">A Film About Films</h3>
+                    <p style="margin-bottom: 15px;">A behind-the-scenes look at the art of filmmaking.</p>
+                    
+                    <p style="font-size: 0.85rem; color: #a3a3a3; margin-bottom: 25px; line-height: 1.8;">
+                        <strong>Authors:</strong> Ekaterina Voronina, Emil Gilmanov, Irina Gavrykova, Alexandra Dunaeva, Darina Radionova, Matvey Durnenkov, Luka Ivanov, Elizaveta Kirillovskaya, San Kostina, Sofia Padykina, Arina Ryabikova, Evgeny Rozhnov, Olga Rozhnova, Nataliya Rozhnova, Anna Serdyuk, Fedor Stolyar, Varvara Shapiguzova<br>
+                        
+                        <strong>Film Editing:</strong> Mikhail Durnenkov<br>
+                        
+                        <strong>CreativeLab Song:</strong> Music: Evgeny Kazachkov/AI Suno &nbsp;|&nbsp; Lyrics: Mikhail Durnenkov<br>
+                        
+                        <strong>Poster Picture:</strong> Sergey Danyushevsky
+                    </p>
+                    
+                    <a href="https://canva.link/oea46igvu0nyvx6" class="watch-link" target="_blank">[ WATCH FILM ]</a>
+                </div>
+            </article>
             
             <div class="film-grid" style="margin-bottom: 80px;">
-                <!-- 1. The Stool -->
                 <article class="film-card">
                     <img src="src/TheStool.png" alt="The Stool" class="film-poster">
                     <div class="film-content">
@@ -537,7 +662,6 @@
                     </div>
                 </article>
 
-                <!-- 2. Cinema Story -->
                 <article class="film-card">
                     <img src="src/cinemastory.jpg" alt="Cinema Story" class="film-poster">
                     <div class="film-content">
@@ -547,7 +671,6 @@
                     </div>
                 </article>
 
-                <!-- 3. Saturn -->
                 <article class="film-card">
                     <img src=".\src\saturn.png" alt="Saturn" class="film-poster">
                     <div class="film-content">
@@ -557,7 +680,6 @@
                     </div>
                 </article>
 
-                <!-- 4. On The Top -->
                 <article class="film-card">
                     <img src="src/OnTheTop.png" alt="On The Top" class="film-poster">
                     <div class="film-content">
@@ -567,7 +689,6 @@
                     </div>
                 </article>
 
-                <!-- 5. Love Story -->
                 <article class="film-card">
                     <img src="src/LoveStory.png" alt="Love Story" class="film-poster">
                     <div class="film-content">
@@ -578,7 +699,7 @@
                 </article>
             </div>
 
-            <!-- СЕКЦИЯ 2025 ГОДА (перенесены старые фильмы) -->
+
             <h2 class="font-playfair" style="font-size: 2.5rem; border-top: 1px solid #222; padding-top: 60px;">2025 Releases</h2>
             <p class="section-intro">Our students' completed short films from the previous year — where vision becomes reality.</p>
             
@@ -781,7 +902,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p class="font-script" style="margin-bottom: 20px;">CreativeLab Helsinki // 2026</p> <!-- Год в футере тоже обновил на 2026 -->
+                <p class="font-script" style="margin-bottom: 20px;">CreativeLab Helsinki // 2026</p>
                 <p style="color: #666; font-size: 0.8rem;">Supported by Opetus- ja kulttuuriministeriö Finland</p>
             </div>
         </div>
